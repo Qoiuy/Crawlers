@@ -5,10 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.quick.magic</groupId>
-    <artifactId>quick-webmagic</artifactId>
+    <artifactId>quick-crawler</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>crawler-zhilian</module>
+        <module>quick-csdn2md</module>
+        <module>simulation-baidu-search</module>
     </modules>
     <packaging>pom</packaging>
 
