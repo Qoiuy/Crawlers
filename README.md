@@ -20,3 +20,7 @@ CSDN文章转批量转MD的代码，还需要改动才能使用
 searchResult(item, item + " site:cn.linkedin.com", 1);
 ```
 注意搜索时候的 url
+
+
+### linkedin crawler
+需要领英爬虫的私聊我~~~
