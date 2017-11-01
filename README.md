@@ -21,6 +21,8 @@ searchResult(item, item + " site:cn.linkedin.com", 1);
 ```
 注意搜索时候的 url
 
+### crawler-inno-tree
+因果树 相关抓取，本想使用webmagic抓的，后来发现还没有httpclient容易控制，遂采用httpclient4.3.2抓取，注意版本号不同使用的方法也不同
 
 ### linkedin crawler
 需要领英爬虫的私聊我~~~
