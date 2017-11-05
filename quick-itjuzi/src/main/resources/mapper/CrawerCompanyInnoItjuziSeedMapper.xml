@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itjuzi.mapper.CrawerCompanyInnoItjuziSeedMapper">
+    <resultMap id="BaseResultMap" type="com.itjuzi.entity.CrawerCompanyInnoItjuziSeed">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="is_crawler" property="isCrawler" jdbcType="BIT"/>
+        <result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="DATE"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, url, is_crawler, add_time, update_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from crawer_company_inno_itjuzi_seed
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from crawer_company_inno_itjuzi_seed
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuziSeed" useGeneratedKeys="true"
+            keyProperty="id">
+    insert into crawer_company_inno_itjuzi_seed (url, is_crawler,
+      update_time)
+    values (#{url,jdbcType=VARCHAR}, #{isCrawler,jdbcType=BIT},
+      #{updateTime,jdbcType=DATE})
+  </insert>
+    <insert id="insertSelective" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuziSeed" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into crawer_company_inno_itjuzi_seed
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="url != null">
+                url,
+            </if>
+            <if test="isCrawler != null">
+                is_crawler,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="isCrawler != null">
+                #{isCrawler,jdbcType=BIT},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuziSeed">
+        update crawer_company_inno_itjuzi_seed
+        <set>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="isCrawler != null">
+                is_crawler = #{isCrawler,jdbcType=BIT},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=DATE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuziSeed">
+    update crawer_company_inno_itjuzi_seed
+    set url = #{url,jdbcType=VARCHAR},
+      is_crawler = #{isCrawler,jdbcType=BIT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = now()
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="countByurl" resultType="java.lang.Integer">
+    SELECT count(url) from crawer_company_inno_itjuzi_seed WHERE url = #{url}
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from crawer_company_inno_itjuzi_seed WHERE is_crawler= 0 LIMIT 100;
+    </select>
+
+    <select id="selectListOrderById" resultMap="BaseResultMap">
+      select * from crawer_company_inno_itjuzi_seed WHERE is_crawler = 0 ORDER BY id ASC;
+    </select>
+
+    <select id="selectOneSeed" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from crawer_company_inno_itjuzi_seed WHERE is_crawler = 0 ORDER BY rand() LIMIT 1;;
+    </select>
+
+</mapper>

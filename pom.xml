@@ -12,6 +12,7 @@
         <module>quick-csdn2md</module>
         <module>simulation-baidu-search</module>
         <module>crawler-inno-tree</module>
+        <module>quick-itjuzi</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itjuzi.mapper.CrawerCompanyInnoItjuziMapper" >
+  <resultMap id="BaseResultMap" type="com.itjuzi.entity.CrawerCompanyInnoItjuzi" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="full_name" property="fullName" jdbcType="VARCHAR" />
+    <result column="company_industry" property="companyIndustry" jdbcType="VARCHAR" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="company_url" property="companyUrl" jdbcType="VARCHAR" />
+    <result column="company_finance" property="companyFinance" jdbcType="VARCHAR" />
+    <result column="company_scale" property="companyScale" jdbcType="VARCHAR" />
+    <result column="company_tags" property="companyTags" jdbcType="VARCHAR" />
+    <result column="company_established_time" property="companyEstablishedTime" jdbcType="TIMESTAMP" />
+    <result column="company_operation_state" property="companyOperationState" jdbcType="VARCHAR" />
+    <result column="crawler_url" property="crawlerUrl" jdbcType="VARCHAR" />
+    <result column="urlMd5" property="urlmd5" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.itjuzi.entity.CrawerCompanyInnoItjuzi" extends="BaseResultMap" >
+    <result column="company_summary" property="companySummary" jdbcType="LONGVARCHAR" />
+    <result column="company_desc" property="companyDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, full_name, company_industry, company_address, company_url, company_finance, 
+    company_scale, company_tags, company_established_time, company_operation_state, crawler_url, 
+    urlMd5, addtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    company_summary, company_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from crawer_company_inno_itjuzi
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from crawer_company_inno_itjuzi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuzi" useGeneratedKeys="true" keyProperty="id" >
+    insert into crawer_company_inno_itjuzi (name, full_name, company_industry, 
+      company_address, company_url, company_finance, 
+      company_scale, company_tags, company_established_time, 
+      company_operation_state, crawler_url, urlMd5, 
+       company_summary, company_desc
+      )
+    values (#{name,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, #{companyIndustry,jdbcType=VARCHAR}, 
+      #{companyAddress,jdbcType=VARCHAR}, #{companyUrl,jdbcType=VARCHAR}, #{companyFinance,jdbcType=VARCHAR}, 
+      #{companyScale,jdbcType=VARCHAR}, #{companyTags,jdbcType=VARCHAR}, #{companyEstablishedTime,jdbcType=TIMESTAMP}, 
+      #{companyOperationState,jdbcType=VARCHAR}, #{crawlerUrl,jdbcType=VARCHAR}, #{urlmd5,jdbcType=VARCHAR}, 
+       #{companySummary,jdbcType=LONGVARCHAR}, #{companyDesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuzi" useGeneratedKeys="true" keyProperty="id" >
+    insert into crawer_company_inno_itjuzi
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="fullName != null" >
+        full_name,
+      </if>
+      <if test="companyIndustry != null" >
+        company_industry,
+      </if>
+      <if test="companyAddress != null" >
+        company_address,
+      </if>
+      <if test="companyUrl != null" >
+        company_url,
+      </if>
+      <if test="companyFinance != null" >
+        company_finance,
+      </if>
+      <if test="companyScale != null" >
+        company_scale,
+      </if>
+      <if test="companyTags != null" >
+        company_tags,
+      </if>
+      <if test="companyEstablishedTime != null" >
+        company_established_time,
+      </if>
+      <if test="companyOperationState != null" >
+        company_operation_state,
+      </if>
+      <if test="crawlerUrl != null" >
+        crawler_url,
+      </if>
+      <if test="urlmd5 != null" >
+        urlMd5,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="companySummary != null" >
+        company_summary,
+      </if>
+      <if test="companyDesc != null" >
+        company_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyIndustry != null" >
+        #{companyIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyUrl != null" >
+        #{companyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="companyFinance != null" >
+        #{companyFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScale != null" >
+        #{companyScale,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTags != null" >
+        #{companyTags,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEstablishedTime != null" >
+        #{companyEstablishedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyOperationState != null" >
+        #{companyOperationState,jdbcType=VARCHAR},
+      </if>
+      <if test="crawlerUrl != null" >
+        #{crawlerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="urlmd5 != null" >
+        #{urlmd5,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companySummary != null" >
+        #{companySummary,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="companyDesc != null" >
+        #{companyDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuzi" >
+    update crawer_company_inno_itjuzi
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyIndustry != null" >
+        company_industry = #{companyIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        company_address = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyUrl != null" >
+        company_url = #{companyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="companyFinance != null" >
+        company_finance = #{companyFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScale != null" >
+        company_scale = #{companyScale,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTags != null" >
+        company_tags = #{companyTags,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEstablishedTime != null" >
+        company_established_time = #{companyEstablishedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyOperationState != null" >
+        company_operation_state = #{companyOperationState,jdbcType=VARCHAR},
+      </if>
+      <if test="crawlerUrl != null" >
+        crawler_url = #{crawlerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="urlmd5 != null" >
+        urlMd5 = #{urlmd5,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companySummary != null" >
+        company_summary = #{companySummary,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="companyDesc != null" >
+        company_desc = #{companyDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuzi" >
+    update crawer_company_inno_itjuzi
+    set name = #{name,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      company_industry = #{companyIndustry,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_url = #{companyUrl,jdbcType=VARCHAR},
+      company_finance = #{companyFinance,jdbcType=VARCHAR},
+      company_scale = #{companyScale,jdbcType=VARCHAR},
+      company_tags = #{companyTags,jdbcType=VARCHAR},
+      company_established_time = #{companyEstablishedTime,jdbcType=TIMESTAMP},
+      company_operation_state = #{companyOperationState,jdbcType=VARCHAR},
+      crawler_url = #{crawlerUrl,jdbcType=VARCHAR},
+      urlMd5 = #{urlmd5,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      company_summary = #{companySummary,jdbcType=LONGVARCHAR},
+      company_desc = #{companyDesc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuzi" >
+    update crawer_company_inno_itjuzi
+    set name = #{name,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      company_industry = #{companyIndustry,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_url = #{companyUrl,jdbcType=VARCHAR},
+      company_finance = #{companyFinance,jdbcType=VARCHAR},
+      company_scale = #{companyScale,jdbcType=VARCHAR},
+      company_tags = #{companyTags,jdbcType=VARCHAR},
+      company_established_time = #{companyEstablishedTime,jdbcType=TIMESTAMP},
+      company_operation_state = #{companyOperationState,jdbcType=VARCHAR},
+      crawler_url = #{crawlerUrl,jdbcType=VARCHAR},
+      urlMd5 = #{urlmd5,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
