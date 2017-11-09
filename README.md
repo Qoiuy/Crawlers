@@ -28,5 +28,9 @@ searchResult(item, item + " site:cn.linkedin.com", 1);
 ### quick-itjuzi
 IT橘子公司列表和公司内容的抓取，惊喜！！！ 配置下数据库，再加个代理就行了(推荐mayidaili) 666
 
+### quick-selenium
+使用selenium模拟人操作浏览器获取数据来实现爬虫
+
+
 ### linkedin crawler
 需要领英爬虫的私聊我~~~

@@ -13,6 +13,7 @@
         <module>simulation-baidu-search</module>
         <module>crawler-inno-tree</module>
         <module>quick-itjuzi</module>
+        <module>quick-selenium</module>
     </modules>
     <packaging>pom</packaging>
 
