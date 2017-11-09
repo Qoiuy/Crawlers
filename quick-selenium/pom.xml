@@ -18,6 +18,12 @@
             <artifactId>selenium-java</artifactId>
             <version>2.53.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.codeborne/phantomjsdriver -->
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.2.1</version>
+        </dependency>
 
     </dependencies>
 
