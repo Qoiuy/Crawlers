@@ -1,5 +1,6 @@
 package com.itjuzi.crawler4httpclient;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -52,13 +53,13 @@ public class CrawlerOrangeByHttpClient {
     private String password;
 
 
-    @Autowired
-    private CrawerCompanyInnoItjuziSeedMapper seedMapper;
+//    @Autowired
+//    private CrawerCompanyInnoItjuziSeedMapper seedMapper;
+//
+//    @Autowired
+//    private CrawerCompanyInnoItjuziMapper juziMapper;
 
-    @Autowired
-    private CrawerCompanyInnoItjuziMapper juziMapper;
-
-    public static WebClient webClient = new WebClient();
+    public static WebClient webClient = new WebClient(BrowserVersion.CHROME);
 
 //    /**
 //     * 根据totalNodes和currentNode 判断当前节点需爬哪些种子
@@ -78,10 +79,14 @@ public class CrawlerOrangeByHttpClient {
 //    }
 
 
+
     public void run() throws IOException {
         while (true) {
             try {
-                CrawerCompanyInnoItjuziSeed seed = seedMapper.selectOneSeed();
+//                CrawerCompanyInnoItjuziSeed seed = seedMapper.selectOneSeed();
+                CrawerCompanyInnoItjuziSeed seed = new CrawerCompanyInnoItjuziSeed();
+                seed.setUrl("https://www.itjuzi.com/company/4157544");
+                seed.setIsCrawler(false);
                 System.out.println("抓取URL： " + seed.getUrl());
                 crawlerContent(seed);
             } catch (Exception e) {
@@ -155,7 +160,7 @@ public class CrawlerOrangeByHttpClient {
         webClient.addRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
         webClient.getOptions().setJavaScriptEnabled(false);
         webClient.getOptions().setCssEnabled(false);
-        webClient.getOptions().setUseInsecureSSL(true);
+//        webClient.getOptions().setUseInsecureSSL(true);
         webClient.getOptions().setTimeout(5000);
 //        ProxyConfig proxyConfig = webClient.getOptions().getProxyConfig();
 //        proxyConfig.setProxyHost(ProxyUtil.proxyIP);
@@ -191,9 +196,9 @@ public class CrawlerOrangeByHttpClient {
     }
 
     public void saveSeed(CrawerCompanyInnoItjuziSeed seed) {
-        if (seedMapper.countByurl(seed.getUrl()) <= 0) {
-            seedMapper.insert(seed);
-        }
+//        if (seedMapper.countByurl(seed.getUrl()) <= 0) {
+//            seedMapper.insert(seed);
+//        }
     }
 
 
@@ -206,8 +211,9 @@ public class CrawlerOrangeByHttpClient {
             try {
                 Page page = webClient.getPage(seed.getUrl());
                 CrawerCompanyInnoItjuzi crawerCompanyInnoItjuzi = buildContent(seed.getUrl(), page.getWebResponse().getContentAsString());
-                updateSeed(seed);
-                juziMapper.insert(crawerCompanyInnoItjuzi);
+                System.out.println(crawerCompanyInnoItjuzi);
+//                updateSeed(seed);
+//                juziMapper.insert(crawerCompanyInnoItjuzi);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("切换代理中...");
@@ -217,7 +223,7 @@ public class CrawlerOrangeByHttpClient {
 
     private void updateSeed(CrawerCompanyInnoItjuziSeed item) {
         item.setIsCrawler(true);
-        seedMapper.updateByPrimaryKey(item);
+//        seedMapper.updateByPrimaryKey(item);
     }
 
     public CrawerCompanyInnoItjuzi buildContent(String url, String html) {
