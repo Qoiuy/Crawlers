@@ -7,9 +7,10 @@
         <result column="is_crawler" property="isCrawler" jdbcType="BIT"/>
         <result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="DATE"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, url, is_crawler, add_time, update_time
+    id, url, is_crawler, add_time, update_time, type
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -24,9 +25,9 @@
     <insert id="insert" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuziSeed" useGeneratedKeys="true"
             keyProperty="id">
     insert into crawer_company_inno_itjuzi_seed (url, is_crawler,
-      update_time)
+      update_time,type)
     values (#{url,jdbcType=VARCHAR}, #{isCrawler,jdbcType=BIT},
-      #{updateTime,jdbcType=DATE})
+      #{updateTime,jdbcType=DATE},#{type,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.itjuzi.entity.CrawerCompanyInnoItjuziSeed" useGeneratedKeys="true"
             keyProperty="id">
@@ -44,6 +45,9 @@
             <if test="updateTime != null">
                 update_time,
             </if>
+            <if test="type != null">
+                type,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="url != null">
@@ -57,6 +61,9 @@
             </if>
             <if test="updateTime != null">
                 #{updateTime,jdbcType=DATE},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -75,6 +82,9 @@
             <if test="updateTime != null">
                 update_time = #{updateTime,jdbcType=DATE},
             </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -83,7 +93,7 @@
     set url = #{url,jdbcType=VARCHAR},
       is_crawler = #{isCrawler,jdbcType=BIT},
       add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = now()
+      update_time = now(),type=#{type,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

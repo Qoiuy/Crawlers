@@ -13,6 +13,8 @@ public class CrawerCompanyInnoItjuziSeed {
 
     private Date updateTime;
 
+    private String type;
+
     public Integer getId() {
         return id;
     }
@@ -53,6 +55,22 @@ public class CrawerCompanyInnoItjuziSeed {
         this.updateTime = updateTime;
     }
 
+    public Boolean getCrawler() {
+        return isCrawler;
+    }
+
+    public void setCrawler(Boolean crawler) {
+        isCrawler = crawler;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "CrawerCompanyInnoItjuziSeed{" +
@@ -61,6 +79,7 @@ public class CrawerCompanyInnoItjuziSeed {
                 ", isCrawler=" + isCrawler +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
