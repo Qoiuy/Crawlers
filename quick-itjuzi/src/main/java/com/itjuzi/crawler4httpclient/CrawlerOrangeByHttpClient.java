@@ -51,6 +51,8 @@ public class CrawlerOrangeByHttpClient {
     @Value("${crawler.password}")
     private String password;
 
+    @Value("${crawler.company.url}")
+    private String crawlerUrl;
 
     @Autowired
     private CrawerCompanyInnoItjuziSeedMapper seedMapper;
@@ -60,37 +62,28 @@ public class CrawlerOrangeByHttpClient {
 
     public static WebClient webClient = new WebClient();
 
-//    /**
-//     * 根据totalNodes和currentNode 判断当前节点需爬哪些种子
-//     */
-//    public List<CrawerCompanyInnoItjuziSeed> buildCurWaitCrawlerSeeds() {
-//        List<CrawerCompanyInnoItjuziSeed> seeds = seedMapper.selectListOrderById();
-//        int pageSize = seeds.size() / totalNodes;
-//        int start = currentNode - 1;
-//        List<CrawerCompanyInnoItjuziSeed> waitCrawlerSeeds = new ArrayList<>();
-//        if (currentNode == totalNodes) {
-//            waitCrawlerSeeds = seeds.subList(start * pageSize, seeds.size());
-//        } else {
-//            waitCrawlerSeeds = seeds.subList(start * pageSize, pageSize * currentNode);
-//        }
-//        return waitCrawlerSeeds;
-//
-//    }
-
 
     public void run() throws IOException {
-        while (true) {
+        CrawerCompanyInnoItjuziSeed seed = null;
+        do {
             try {
-                CrawerCompanyInnoItjuziSeed seed = seedMapper.selectOneSeed();
+//                seed = seedMapper.selectOneSeed();
+                seed = new CrawerCompanyInnoItjuziSeed();
+                seed.setUrl("https://www.itjuzi.com/company/12454165");
                 System.out.println("抓取URL： " + seed.getUrl());
                 crawlerContent(seed);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        } while (seed != null);
     }
 
-    public void crawlerByClient(int start) throws IOException {
+    /**
+     * 抓取公司列表
+     * @param start
+     * @throws IOException
+     */
+    public void crawlerList(int start) throws IOException {
         /**
          * 获取正确的webclient
          */
@@ -99,7 +92,7 @@ public class CrawlerOrangeByHttpClient {
 
         for (int i = start; i <= totalPage; i++) {
             try {
-                HtmlPage page = webClient.getPage("https://www.itjuzi.com/company?page=" + i);
+                HtmlPage page = webClient.getPage("https://www.itjuzi.com/company/foreign?page=" + i);
                 int count = write2File(page.getWebResponse().getContentAsString());
                 if (count <= 0) {
                     getLoginedClient();
@@ -137,17 +130,22 @@ public class CrawlerOrangeByHttpClient {
         do {
             try {
                 loginPage = login();
+                if (loginPage != null) {
+                    html = loginPage.getWebResponse().getContentAsString();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
                 System.out.println("切换代理中...");
             }
+        } while (!isPass(html));
+    }
 
-            if (loginPage != null) {
-                html = loginPage.getWebResponse().getContentAsString();
-            }
-
-        } while (isWAFPage(html));
+    private boolean isPass(String html) {
+        if (isWAFPage(html)) {
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public HtmlPage login() throws IOException {
@@ -157,6 +155,7 @@ public class CrawlerOrangeByHttpClient {
         webClient.getOptions().setCssEnabled(false);
         webClient.getOptions().setUseInsecureSSL(true);
         webClient.getOptions().setTimeout(5000);
+        // 配置代理的地方
 //        ProxyConfig proxyConfig = webClient.getOptions().getProxyConfig();
 //        proxyConfig.setProxyHost(ProxyUtil.proxyIP);
 //        proxyConfig.setProxyPort(ProxyUtil.proxyPort);
@@ -176,7 +175,8 @@ public class CrawlerOrangeByHttpClient {
 
     public int write2File(String html) throws IOException {
         Document parse = Jsoup.parse(html);
-        Elements select = parse.select("body > div.thewrap > div:nth-child(4) > div.main > div:nth-child(3) > div > ul.list-main-icnset.company-list-ul > li");
+//        Elements select = parse.select("body > div.thewrap > div:nth-child(4) > div.main > div:nth-child(3) > div > ul.list-main-icnset.company-list-ul > li");
+        Elements select = parse.select("body > div.thewrap > div:nth-child(4) > div.main > div:nth-child(3) > div > div:nth-child(1) > ul:nth-child(2) > li");
         List<String> companyUrl = new ArrayList<>();
         for (Element item : select) {
             String href = item.select("i.cell.pic a").attr("href");
@@ -184,6 +184,8 @@ public class CrawlerOrangeByHttpClient {
                 companyUrl.add(href);
                 CrawerCompanyInnoItjuziSeed seed = new CrawerCompanyInnoItjuziSeed();
                 seed.setUrl(href);
+                seed.setIsCrawler(false);
+                seed.setType("https://www.itjuzi.com/company/foreign");
                 saveSeed(seed);
             }
         }
@@ -202,17 +204,16 @@ public class CrawlerOrangeByHttpClient {
      */
     public void crawlerContent(CrawerCompanyInnoItjuziSeed seed) throws IOException {
         getLoginedClient();
-//        for (CrawerCompanyInnoItjuziSeed item : seeds) {
-            try {
-                Page page = webClient.getPage(seed.getUrl());
-                CrawerCompanyInnoItjuzi crawerCompanyInnoItjuzi = buildContent(seed.getUrl(), page.getWebResponse().getContentAsString());
-                updateSeed(seed);
-                juziMapper.insert(crawerCompanyInnoItjuzi);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("切换代理中...");
-            }
-//        }
+        try {
+            Page page = webClient.getPage(seed.getUrl());
+            CrawerCompanyInnoItjuzi crawerCompanyInnoItjuzi = buildContent(seed.getUrl(), page.getWebResponse().getContentAsString());
+            System.out.println(crawerCompanyInnoItjuzi);
+//            updateSeed(seed);
+//            juziMapper.insert(crawerCompanyInnoItjuzi);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("切换代理中...");
+        }
     }
 
     private void updateSeed(CrawerCompanyInnoItjuziSeed item) {

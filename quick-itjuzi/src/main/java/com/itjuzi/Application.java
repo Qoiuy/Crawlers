@@ -18,8 +18,6 @@ import java.io.IOException;
 @SpringBootApplication
 public class Application {
 
-    public final static int LIST_START = 0;
-
     @Resource
     private CrawlerOrangeByHttpClient crawlerOrangeByHttpClient;
 

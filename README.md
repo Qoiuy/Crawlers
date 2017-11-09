@@ -25,5 +25,8 @@ searchResult(item, item + " site:cn.linkedin.com", 1);
 因果树 相关抓取，本想使用webmagic抓的，后来发现还没有httpclient容易控制，遂采用httpclient4.3.2抓取，注意版本号不同使用的方法也不同
 公司的列表和对应的详情(公司关系图数据，公司产品列表数据) 都可以一次性抓完哟
 
+### quick-itjuzi
+IT橘子公司列表和公司内容的抓取，惊喜！！！ 配置下数据库，再加个代理就行了(推荐mayidaili) 666
+
 ### linkedin crawler
 需要领英爬虫的私聊我~~~
