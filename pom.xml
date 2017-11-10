@@ -14,6 +14,7 @@
         <module>crawler-inno-tree</module>
         <module>quick-itjuzi</module>
         <module>quick-selenium</module>
+        <module>quick-bd-zhaopin</module>
     </modules>
     <packaging>pom</packaging>
 
