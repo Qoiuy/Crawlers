@@ -3,8 +3,7 @@ package com.selenium;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -18,9 +17,10 @@ import java.util.Set;
  */
 public class NoViewTest {
     public static void main(String[] args) throws InterruptedException {
-        System.setProperty("phantomjs.binary.path", "D:\\develop\\tools\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
-        //    WebDriver driver = new FirefoxDriver();
-        WebDriver driver = new PhantomJSDriver();
+//        System.setProperty("phantomjs.binary.path", "D:\\develop\\tools\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
+        System.setProperty("phantomjs.binary.path", "D:\\tools\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
+            WebDriver driver = new FirefoxDriver();
+//        WebDriver driver = new PhantomJSDriver();
         WebElement element = driver.findElement(By.cssSelector("#kw"));
         element.sendKeys("vector4wang");
         WebElement btn = driver.findElement(By.cssSelector("#su"));

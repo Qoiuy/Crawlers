@@ -44,7 +44,7 @@ public class TestMain {
             driver = driver.switchTo().window(handle);
         }
 
-        Thread.sleep(20000); // 时间等的依个人而定
+        Thread.sleep(15000); // 时间等的依个人而定
         WebElement desc = driver.findElement(By.cssSelector("#Pl_Official_Headerv6__1 > div > div > div.shadow > div.pf_intro"));
         System.out.println(desc.getText());
 
