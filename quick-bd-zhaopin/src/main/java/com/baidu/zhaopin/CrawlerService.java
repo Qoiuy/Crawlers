@@ -35,7 +35,7 @@ public class CrawlerService {
     final static WebClient webClient = new WebClient();
 
     public static void main(String[] args) throws IOException {
-        List<String> list = IOUtils.readLines(new FileInputStream(new File("D:\\company\\weiwei\\company_100.txt")));
+        List<String> list = IOUtils.readLines(new FileInputStream(new File("D:\\company\\weiwei\\company_100_2.txt")));
         for (String companyName : list) {
             if (!isExist(companyName)) {
                 try {
@@ -46,7 +46,6 @@ public class CrawlerService {
                 }
             }
         }
-
     }
 
     public static void crawlerCompany(String key) throws IOException {
@@ -98,33 +97,33 @@ public class CrawlerService {
 
     public static void save(AppointCompanyDetail appointCompanyDetail) {
 //
-//        String sql = "INSERT INTO `appoint_company_detail` (`name`, `company_nature`, `company_scale`, `company_category`, `company_address`, `company_contact`) " +
-//                "VALUES (?, ?, ?, ?, ?, ?)";
-//        //创建填充参数的list
-//        List<Object> paramList = new ArrayList<Object>();
-//        //填充参数
-//        paramList.add(appointCompanyDetail.getName());
-//        paramList.add(appointCompanyDetail.getCompanyNature());
-//        paramList.add(appointCompanyDetail.getCompanyScale());
-//        paramList.add(appointCompanyDetail.getCompanyCategory());
-//        paramList.add(appointCompanyDetail.getCompanyAddress());
-//        paramList.add(appointCompanyDetail.getCompanyContact());
-//
-//        JdbcUtil jdbcUtil = null;
-//        boolean bool = false;
-//        try {
-//            jdbcUtil = new JdbcUtil();
-//            jdbcUtil.getConnection(); // 获取数据库链接
-//            bool = jdbcUtil.updateByPreparedStatement(sql, paramList);
-//        } catch (SQLException e) {
-//            System.out.println("执行更新操作抛出异常！");
-//            e.printStackTrace();
-//        } finally {
-//            if (jdbcUtil != null) {
-//                jdbcUtil.releaseConn(); // 一定要释放资源
-//            }
-//        }
-//        System.out.println("执行更新的结果："+bool);
+        String sql = "INSERT INTO `appoint_company_detail` (`name`, `company_nature`, `company_scale`, `company_category`, `company_address`, `company_contact`) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+        //创建填充参数的list
+        List<Object> paramList = new ArrayList<Object>();
+        //填充参数
+        paramList.add(appointCompanyDetail.getName());
+        paramList.add(appointCompanyDetail.getCompanyNature());
+        paramList.add(appointCompanyDetail.getCompanyScale());
+        paramList.add(appointCompanyDetail.getCompanyCategory());
+        paramList.add(appointCompanyDetail.getCompanyAddress());
+        paramList.add(appointCompanyDetail.getCompanyContact());
+
+        JdbcUtil jdbcUtil = null;
+        boolean bool = false;
+        try {
+            jdbcUtil = new JdbcUtil();
+            jdbcUtil.getConnection(); // 获取数据库链接
+            bool = jdbcUtil.updateByPreparedStatement(sql, paramList);
+        } catch (SQLException e) {
+            System.out.println("执行更新操作抛出异常！");
+            e.printStackTrace();
+        } finally {
+            if (jdbcUtil != null) {
+                jdbcUtil.releaseConn(); // 一定要释放资源
+            }
+        }
+        System.out.println("执行更新的结果："+bool);
     }
 
     public static boolean isExist(String company) {
